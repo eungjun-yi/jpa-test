@@ -1,7 +1,9 @@
+package eungjun;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-class Person {
+public class Person {
     @GeneratedValue
     @Id
     private Long id;
