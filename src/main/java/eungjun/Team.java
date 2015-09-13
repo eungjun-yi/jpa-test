@@ -16,7 +16,7 @@ public class Team {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Membership> members = new HashSet<>();
 
     public void setName(String name) {

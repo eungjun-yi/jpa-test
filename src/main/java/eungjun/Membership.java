@@ -1,14 +1,23 @@
 package eungjun;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * @author Yi EungJun <eungjun.yi@gmail.com>
  */
 @Entity
 public class Membership {
+
+    @GeneratedValue
+    @Id
+    Long id;
+
+    @ManyToOne
     private Team team;
+
     private String level;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person person;
 
     public void setTeam(Team team) {
