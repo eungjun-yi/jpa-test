@@ -54,28 +54,28 @@ public class TeamTest {
     public void addMemberConcurrently() {
         Team team = new Team();
         team.setName("red");
-        teamRepository.save(team);
+        team = teamRepository.save(team);
 
         {
             Person person = new Person();
-            person.setName("yi");
+            person.setName("kim");
             Membership membership = new Membership();
             membership.setTeam(team);
             membership.setPerson(person);
             membership.setLevel("admin");
             team.getMembers().add(membership);
-            teamRepository.save(team);
+            team = teamRepository.save(team);
         }
 
         {
             Person person = new Person();
-            person.setName("yi");
+            person.setName("kim");
             Membership membership = new Membership();
             membership.setTeam(team);
             membership.setPerson(person);
             membership.setLevel("member");
             team.getMembers().add(membership);
-            teamRepository.save(team);
+            team = teamRepository.save(team);
         }
 
         team = teamRepository.findOne(team.getId());
