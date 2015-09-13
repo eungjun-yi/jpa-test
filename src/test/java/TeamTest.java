@@ -38,10 +38,14 @@ public class TeamTest {
         team.setName("blue");
         Person person = new Person();
         person.setName("yi");
-        team.getMembers().add(person);
+        Membership membership = new Membership();
+        membership.setTeam(team);
+        membership.setPerson(person);
+        membership.setLevel("admin");
+        team.getMembers().add(membership);
         teamRepository.save(team);
 
         team = teamRepository.findOne(team.getId());
-        assertThat(team.getMembers(), hasItem(person));
+        assertThat(team.getMembers(), hasItem(membership));
     }
 }
