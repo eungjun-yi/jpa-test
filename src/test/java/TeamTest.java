@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.transaction.Transactional;
 
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -48,4 +49,37 @@ public class TeamTest {
         team = teamRepository.findOne(team.getId());
         assertThat(team.getMembers(), hasItem(membership));
     }
+
+    @Test
+    public void addMemberConcurrently() {
+        Team team = new Team();
+        team.setName("red");
+        teamRepository.save(team);
+
+        {
+            Person person = new Person();
+            person.setName("yi");
+            Membership membership = new Membership();
+            membership.setTeam(team);
+            membership.setPerson(person);
+            membership.setLevel("admin");
+            team.getMembers().add(membership);
+            teamRepository.save(team);
+        }
+
+        {
+            Person person = new Person();
+            person.setName("yi");
+            Membership membership = new Membership();
+            membership.setTeam(team);
+            membership.setPerson(person);
+            membership.setLevel("member");
+            team.getMembers().add(membership);
+            teamRepository.save(team);
+        }
+
+        team = teamRepository.findOne(team.getId());
+        assertThat(team.getMembers(), hasSize(1));
+    }
+
 }
