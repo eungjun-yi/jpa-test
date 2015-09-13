@@ -48,7 +48,6 @@ public class Membership {
         Membership that = (Membership) o;
 
         if (team != null ? !team.equals(that.team) : that.team != null) return false;
-        if (level != null ? !level.equals(that.level) : that.level != null) return false;
         return !(person != null ? !person.equals(that.person) : that.person != null);
 
     }
@@ -56,7 +55,6 @@ public class Membership {
     @Override
     public int hashCode() {
         int result = team != null ? team.hashCode() : 0;
-        result = 31 * result + (level != null ? level.hashCode() : 0);
         result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }

@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
 
+import java.util.Properties;
+
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +24,9 @@ public class TeamTest {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @Test
     public void create() {
@@ -55,10 +60,11 @@ public class TeamTest {
         Team team = new Team();
         team.setName("red");
         team = teamRepository.save(team);
+        Person person = new Person();
+        person.setName("kim");
+        person = personRepository.save(person);
 
         {
-            Person person = new Person();
-            person.setName("kim");
             Membership membership = new Membership();
             membership.setTeam(team);
             membership.setPerson(person);
@@ -68,8 +74,6 @@ public class TeamTest {
         }
 
         {
-            Person person = new Person();
-            person.setName("kim");
             Membership membership = new Membership();
             membership.setTeam(team);
             membership.setPerson(person);
